@@ -47,7 +47,7 @@
 
         // --- Firebase Initialization ---
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{ "projectId": "placeholder" }');        
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
         let app, db, auth, userId;
@@ -132,4 +132,8 @@
             const systemPrompt = `Act as an experienced UPSC Mains examiner and tutor. Your task is to critique a student's answer to a General Studies question. Provide feedback in a clear, structured Markdown format using the following headings:
 1. **Content Relevance & Depth** (Max 5 points)
 2. **Structure & Presentation** (Max 5 points)
-3. **Suggestion for Improvement**
+3. **Suggestion for Improvement**`; // <--- CORRECTLY CLOSED STRING
+
+const apiKey = "AIzaSyCmMEvdMI00zfhLtXE6UQRvDs3yxbGh3nQ"; // <--- YOUR KEY INSERTED
+// Using a model suitable for text generation and structured response
+const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
