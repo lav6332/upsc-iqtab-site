@@ -1,586 +1,135 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
-</head>
-<body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;UPSC IQTAB - Intelligent Quality Tabulated Preparation&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Load Tailwind CSS --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Use Inter font --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Inter', sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #0d111c; /* Deep Dark Background */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #e2e8f0; /* Light text for contrast */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>scroll-behavior: smooth;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Custom scrollbar for aesthetics */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body::-webkit-scrollbar {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body::-webkit-scrollbar-thumb {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #6366f1; /* Indigo */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.critique-card {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>min-height: 250px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>tailwind.config = {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>theme: {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>extend: {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>colors: {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>'iqtab-primary': '#4f46e5', // Indigo 600</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>'iqtab-secondary': '#fbbf24', // Amber 400</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>'iqtab-dark': '#0d111c', // Deep Dark</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>'iqtab-card': '#1a202c', // Slightly lighter dark for cards</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script type="module"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Firebase Initialization ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>let app, db, auth, userId;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>setLogLevel('Debug');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const initializeFirebase = async () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (Object.keys(firebaseConfig).length === 0) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>console.warn("Firebase config not available. Running in local mode.");</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>app = initializeApp(firebaseConfig);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>auth = getAuth(app);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>db = getFirestore(app);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>// Authenticate</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (initialAuthToken) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>await signInWithCustomToken(auth, initialAuthToken);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>await signInAnonymously(auth);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>onAuthStateChanged(auth, (user) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (user) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>userId = user.uid;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>console.log("Firebase Auth Ready. User ID:", userId);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>console.log("User signed out or anonymous.");</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>userId = null;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} catch (error) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>console.error("Error initializing Firebase or signing in:", error);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>initializeFirebase();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Gemini API Logic ---</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Helper function for exponential backoff</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const fetchWithRetry = async (url, options, maxRetries = 5) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>for (let i = 0; i &lt; maxRetries; i++) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const response = await fetch(url, options);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (!response.ok) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>// Throw error to trigger retry if status is 429 or 5xx</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>if (response.status === 429 || response.status &gt;= 500) {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>throw new Error(`HTTP error! status: ${response.status}`);</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>return response;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} catch (error) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (i === maxRetries - 1) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>throw error;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>await new Promise(resolve =&gt; setTimeout(resolve, delay));</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>window.generateAnswerCritique = async () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const answerInput = document.getElementById('mains-answer-input');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const critiqueOutput = document.getElementById('critique-output');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const loadingIndicator = document.getElementById('critique-loading');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const critiqueButton = document.getElementById('critique-button');</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const userQuery = answerInput.value.trim();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!userQuery) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>critiqueOutput.innerHTML = `&lt;p class="text-red-400"&gt;Please enter your practice answer first.&lt;/p&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>loadingIndicator.classList.remove('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>critiqueButton.disabled = true;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>critiqueOutput.innerHTML = '';</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const systemPrompt = `Act as an experienced UPSC Mains examiner and tutor. Your task is to critique a student's answer to a General Studies question. Provide feedback in a clear, structured Markdown format using the following headings:</p>
-<p class="p1">1. **Content Relevance &amp; Depth** (Max 5 points)</p>
-<p class="p1">2. **Structure &amp; Presentation** (Max 5 points)</p>
-<p class="p1">3. **Suggestion for Improvement**</p>
-<p class="p2"><br></p>
-<p class="p1">The tone must be constructive, academic, and focused on UPSC standards. The critique must be detailed and analytical.`;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const apiKey = "";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Using a model suitable for text generation and structured response</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const payload = {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>contents: [{ parts: [{ text: userQuery }] }],</p>
-<p class="p1"><span class="Apple-converted-space">                </span>systemInstruction: {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>parts: [{ text: systemPrompt }]</p>
-<p class="p1"><span class="Apple-converted-space">                </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                </span>// Requesting a concise critique, though we don't enforce JSON schema here</p>
-<p class="p1"><span class="Apple-converted-space">                </span>// as Markdown is better for human-readable feedback.</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const response = await fetchWithRetry(apiUrl, {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>method: 'POST',</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>headers: { 'Content-Type': 'application/json' },</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>body: JSON.stringify(payload)</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>const result = await response.json();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>const text = result.candidates?.[0]?.content?.parts?.[0]?.text;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (text) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>// Convert Markdown output to HTML for display</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>critiqueOutput.innerHTML = window.markdownToHtml(text);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>critiqueOutput.innerHTML = `&lt;p class="text-red-400"&gt;Error: Could not generate critique. Please try again.&lt;/p&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>console.error("Gemini API response error:", result);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>} catch (error) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>critiqueOutput.innerHTML = `&lt;p class="text-red-400"&gt;An error occurred during API call. Please check console for details.&lt;/p&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>console.error("Fetch error:", error);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} finally {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>loadingIndicator.classList.add('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>critiqueButton.disabled = false;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Simple Markdown to HTML converter (for displaying Gemini's structured response)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>window.markdownToHtml = function(markdown) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let html = markdown</p>
-<p class="p1"><span class="Apple-converted-space">                </span>.replace(/^### (.*$)/gim, '&lt;h3&gt;$1&lt;/h3&gt;')</p>
-<p class="p1"><span class="Apple-converted-space">                </span>.replace(/^## (.*$)/gim, '&lt;h2&gt;$1&lt;/h2&gt;')</p>
-<p class="p1"><span class="Apple-converted-space">                </span>.replace(/^# (.*$)/gim, '&lt;h1&gt;$1&lt;/h1&gt;')</p>
-<p class="p1"><span class="Apple-converted-space">                </span>.replace(/\*\*(.*?)\*\*/gim, '&lt;strong&gt;$1&lt;/strong&gt;')</p>
-<p class="p1"><span class="Apple-converted-space">                </span>.replace(/\*(.*?)\*/gim, '&lt;em&gt;$1&lt;/em&gt;')</p>
-<p class="p1"><span class="Apple-converted-space">                </span>.replace(/^- (.*$)/gim, '&lt;li&gt;$1&lt;/li&gt;');</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Handle lists not being perfect</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (html.includes('&lt;li&gt;') &amp;&amp; !html.includes('&lt;ul&gt;')) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>html = '&lt;ul&gt;' + html + '&lt;/ul&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Add paragraphs for block text</p>
-<p class="p1"><span class="Apple-converted-space">            </span>html = html.split('\n\n').map(p =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (p.startsWith('&lt;h') || p.startsWith('&lt;ul&gt;')) return p;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>return `&lt;p class="mb-2"&gt;${p.trim()}&lt;/p&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}).join('');</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>return html;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body class="antialiased"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Header &amp; Navigation --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;header class="sticky top-0 z-50 bg-iqtab-dark/95 backdrop-blur-sm shadow-lg border-b border-iqtab-primary/20"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex justify-between items-center h-16"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Logo --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#" class="flex items-center space-x-2 text-2xl font-bold text-iqtab-secondary"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;svg class="w-8 h-8 text-iqtab-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.523 5.754 18 7.5 18s3.332.477 4.5 1.247m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.523 18.246 18 16.5 18s-3.332.477-4.5 1.247"&gt;&lt;/path&gt;&lt;/svg&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span&gt;UPSC IQTAB&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/a&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Desktop Nav --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;nav class="hidden md:flex space-x-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="#hero" class="text-gray-300 hover:text-iqtab-primary transition duration-300"&gt;Home&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="#courses" class="text-gray-300 hover:text-iqtab-primary transition duration-300"&gt;Courses&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="#resources" class="text-gray-300 hover:text-iqtab-primary transition duration-300"&gt;Resources&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="#mentorship" class="text-gray-300 hover:text-iqtab-primary transition duration-300"&gt;Mentorship&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="#contact" class="text-gray-300 hover:text-iqtab-primary transition duration-300"&gt;Contact&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/nav&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- CTA Button --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#enroll" class="hidden md:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-iqtab-dark bg-iqtab-secondary hover:bg-amber-300 transition duration-300"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>Join Now</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/a&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Mobile Menu Button (Hamburger) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;button id="mobile-menu-btn" class="md:hidden text-gray-400 hover:text-white focus:outline-none"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"&gt;&lt;/path&gt;&lt;/svg&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Mobile Menu (Hidden by default) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="mobile-menu" class="hidden md:hidden bg-iqtab-dark border-t border-iqtab-primary/20"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#hero" class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"&gt;Home&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#courses" class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"&gt;Courses&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#resources" class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"&gt;Resources&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#mentorship" class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"&gt;Mentorship&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#contact" class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium"&gt;Contact&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#enroll" class="mt-2 text-center text-iqtab-dark bg-iqtab-secondary hover:bg-amber-300 block px-3 py-2 rounded-full text-base font-medium transition duration-300"&gt;Join Now&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Main Content --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;main&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- 1. Hero Section --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section id="hero" class="relative pt-20 pb-32 overflow-hidden bg-iqtab-dark isolate"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#6366f1] to-[#3b82f6] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-4 leading-tight"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="block text-white"&gt;Master UPSC with&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="block text-transparent bg-clip-text bg-gradient-to-r from-iqtab-primary to-iqtab-secondary"&gt;Intelligent Quality Tabulation.&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="mt-6 text-xl text-gray-400 max-w-3xl mx-auto"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>UPSC IQTAB offers meticulously structured courses, daily current affairs analysis, and personalized mentorship to ensure your path to the Civil Services is efficient and goal-oriented.</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-10 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="#courses" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-lg text-white bg-iqtab-primary hover:bg-indigo-700 transition duration-300 transform hover:scale-105"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>Explore Full Courses</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="#resources" class="inline-flex items-center justify-center px-8 py-3 border border-iqtab-secondary text-base font-medium rounded-full shadow-lg text-iqtab-secondary bg-iqtab-dark hover:bg-iqtab-card transition duration-300 transform hover:scale-105"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>Free Daily Resources →</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- 2. Features/USP Section --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section id="features" class="py-20 bg-iqtab-card/50"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-3xl font-bold text-center text-white mb-12"&gt;The IQTAB Advantage: Why Students Trust Us&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Feature Card 1 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-iqtab-card p-6 rounded-xl shadow-2xl border border-iqtab-primary/30 hover:shadow-iqtab-primary/50 transition duration-500 transform hover:-translate-y-1"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex items-center justify-center w-12 h-12 rounded-full bg-iqtab-primary/20 text-iqtab-primary mb-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.003 12.003 0 0012 21.044a12.003 12.003 0 008.618-14.016z"&gt;&lt;/path&gt;&lt;/svg&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="text-xl font-semibold text-white mb-2"&gt;Structured Curriculum&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-gray-400"&gt;Our courses are built on the 'Tabulation' principle—breaking down vast syllabus into digestible, interconnected modules for crystal clear understanding.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Feature Card 2 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-iqtab-card p-6 rounded-xl shadow-2xl border border-iqtab-primary/30 hover:shadow-iqtab-primary/50 transition duration-500 transform hover:-translate-y-1"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex items-center justify-center w-12 h-12 rounded-full bg-iqtab-primary/20 text-iqtab-primary mb-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M12 20.005h.01m-1.25-6.524a4 4 0 00-4 4v3h8v-3a4 4 0 00-4-4z"&gt;&lt;/path&gt;&lt;/svg&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="text-xl font-semibold text-white mb-2"&gt;Expert-Led Mentorship&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-gray-400"&gt;Get 1:1 guidance from UPSC veterans and successful candidates. Stop studying hard and start studying *smart* with proven strategies.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Feature Card 3 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-iqtab-card p-6 rounded-xl shadow-2xl border border-iqtab-primary/30 hover:shadow-iqtab-primary/50 transition duration-500 transform hover:-translate-y-1"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex items-center justify-center w-12 h-12 rounded-full bg-iqtab-primary/20 text-iqtab-primary mb-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6a2 2 0 00-2-2H5a2 2 0 00-2 2v13m7 0h2.828a2 2 0 001.414-.586l.662-.662m0 0a2 2 0 011.414-.586H21V6a2 2 0 00-2-2h-3a2 2 0 00-2 2v13"&gt;&lt;/path&gt;&lt;/svg&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="text-xl font-semibold text-white mb-2"&gt;Daily Quality Assessments&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-gray-400"&gt;Reinforce learning with daily sectional quizzes, mains answer writing practice, and full-length mock tests designed exactly on the UPSC pattern.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- 3. Courses Section (Variety of Options) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section id="courses" class="py-20"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-center mb-16"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-iqtab-secondary font-semibold uppercase"&gt;Our Offerings&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="text-4xl font-bold text-white mt-2"&gt;Choose Your Pathway to Success&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="mt-4 text-lg text-gray-400"&gt;Whether you are a beginner or a veteran, we have a tailored course for every stage of your preparation.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Course Card 1: Foundation --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-iqtab-card rounded-2xl p-8 shadow-2xl border-t-4 border-iqtab-primary/70 transform transition duration-500 hover:scale-[1.02]"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="text-2xl font-bold text-iqtab-primary mb-3"&gt;Foundation Batch (GS + CSAT)&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-gray-400 mb-6"&gt;Comprehensive 1-year program covering the entire syllabus from basic to advanced level. Perfect for freshers.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;ul class="space-y-3 text-gray-300 mb-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;li class="flex items-center"&gt;&lt;svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"&gt;&lt;path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"&gt;&lt;/path&gt;&lt;/svg&gt;1000+ Hours of Live Classes&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;li class="flex items-center"&gt;&lt;svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"&gt;&lt;path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"&gt;&lt;/path&gt;&lt;/svg&gt;Prelims &amp; Mains Test Series Included&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;li class="flex items-center"&gt;&lt;svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"&gt;&lt;path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"&gt;&lt;/path&gt;&lt;/svg&gt;Dedicated Personal Mentor&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="#" class="block w-full text-center py-3 rounded-full text-iqtab-dark bg-iqtab-secondary font-bold hover:bg-amber-300 transition duration-300"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>Enroll Now</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Course Card 2: Test Series --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-iqtab-card rounded-2xl p-8 shadow-2xl border-t-4 border-green-500 transform transition duration-500 hover:scale-[1.02]"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="text-2xl font-bold text-green-500 mb-3"&gt;Prelims Mock Test Series 2025&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-gray-400 mb-6"&gt;Simulation is the key to success. Practice with 50+ full-syllabus and sectional tests crafted by UPSC experts.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;ul class="space-y-3 text-gray-300 mb-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;li class="flex items-center"&gt;&lt;svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"&gt;&lt;path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"&gt;&lt;/path&gt;&lt;/svg&gt;50+ Sectional &amp; Full-Length Tests&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;li class="flex items-center"&gt;&lt;svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"&gt;&lt;path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"&gt;&lt;/path&gt;&lt;/svg&gt;Detailed Micro-Analytics Report&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;li class="flex items-center"&gt;&lt;svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"&gt;&lt;path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"&gt;&lt;/path&gt;&lt;/svg&gt;Video Solutions by Faculty&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="#" class="block w-full text-center py-3 rounded-full text-iqtab-dark bg-green-500 font-bold hover:bg-green-400 transition duration-300"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>View Details</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Course Card 3: Optional --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-iqtab-card rounded-2xl p-8 shadow-2xl border-t-4 border-red-500 transform transition duration-500 hover:scale-[1.02]"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="text-2xl font-bold text-red-500 mb-3"&gt;Optional Subject Mastery&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-gray-400 mb-6"&gt;Specialized coaching for selected high-scoring optional subjects. Structured for 300+ score achievement.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;ul class="space-y-3 text-gray-300 mb-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;li class="flex items-center"&gt;&lt;svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"&gt;&lt;path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"&gt;&lt;/path&gt;&lt;/svg&gt;Focus on Answer Writing Skill&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;li class="flex items-center"&gt;&lt;svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"&gt;&lt;path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"&gt;&lt;/path&gt;&lt;/svg&gt;Small Batch Size for Personal Attention&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;li class="flex items-center"&gt;&lt;svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"&gt;&lt;path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"&gt;&lt;/path&gt;&lt;/svg&gt;Subject Availability Check&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="#" class="block w-full text-center py-3 rounded-full text-iqtab-dark bg-red-500 font-bold hover:bg-red-400 transition duration-300"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>Check Optional Subjects</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- 4. Free Resources Section (Tabs for Variety) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section id="resources" class="py-20 bg-iqtab-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-center mb-12"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-iqtab-primary font-semibold uppercase"&gt;Free Value Additions&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="text-4xl font-bold text-white mt-2"&gt;Daily Dose of IQTAB Resources&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Tabs Navigation --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex justify-center mb-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex flex-wrap justify-center bg-iqtab-dark p-1 rounded-full space-x-2 shadow-inner"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="showTab('dma')" id="tab-dma" class="tab-btn bg-iqtab-primary text-white px-6 py-2 rounded-full font-medium transition duration-300 my-1"&gt;Daily Mains Answer Writing&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="showTab('dna')" id="tab-dna" class="tab-btn text-gray-400 hover:text-white px-6 py-2 rounded-full font-medium transition duration-300 my-1"&gt;Daily News Analysis (DNA)&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="showTab('pyq')" id="tab-pyq" class="tab-btn text-gray-400 hover:text-white px-6 py-2 rounded-full font-medium transition duration-300 my-1"&gt;Topic-wise PYQs&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Tab Content Containers --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- DMA Tab: Enhanced with Gemini LLM Critique Feature --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="tab-content-dma" class="tab-content bg-iqtab-dark p-8 rounded-xl border border-iqtab-primary/50 shadow-lg"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-2xl font-bold text-iqtab-secondary mb-4"&gt;Daily Mains Answer Writing (DMA) &amp; ✨ Instant Critique&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-400 mb-6"&gt;Practice makes perfect. Use our **Instant Critique** tool below to get immediate, structured feedback on your answer draft, simulating a UPSC evaluation.&lt;/p&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="p-6 bg-iqtab-card rounded-xl border border-iqtab-secondary/30"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="text-xl font-semibold text-white mb-4"&gt;Daily Question Prompt (GS Paper III)&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-iqtab-secondary mb-4 p-3 bg-iqtab-dark rounded-lg border border-iqtab-primary/50"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>**Question:** Discuss the various mechanisms used by the Reserve Bank of India (RBI) to manage liquidity in the Indian economy. (150 words)</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/p&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                        </span></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label for="mains-answer-input" class="block text-gray-300 mb-2"&gt;Your Practice Answer:&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;textarea id="mains-answer-input" rows="8" class="w-full p-4 bg-iqtab-dark border border-gray-600 rounded-lg focus:border-iqtab-primary focus:ring-iqtab-primary text-white placeholder-gray-500 resize-y" placeholder="Paste your 150-word answer here..."&gt;&lt;/textarea&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                        </span></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button id="critique-button" onclick="generateAnswerCritique()" class="mt-4 w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-bold rounded-full shadow-sm text-iqtab-dark bg-iqtab-secondary hover:bg-amber-300 transition duration-300"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>✨ Get Instant UPSC Critique</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div id="critique-loading" class="hidden mt-4 text-iqtab-primary flex items-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-iqtab-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"&gt;&lt;/circle&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"&gt;&lt;/path&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/svg&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>Analyzing answer, please wait...</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;!-- Critique Output Area --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div id="critique-output" class="critique-card mt-6 p-4 bg-iqtab-dark rounded-lg border border-iqtab-primary/50 text-gray-300 prose prose-invert max-w-none"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;Your expert feedback will appear here after analysis. The critique covers content, structure, and suggestions for improvement.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="#" class="mt-8 inline-flex text-iqtab-primary hover:underline font-semibold"&gt;Access Full DMA Archive →&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="tab-content-dna" class="tab-content hidden bg-iqtab-dark p-8 rounded-xl border border-iqtab-primary/50 shadow-lg"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-2xl font-bold text-iqtab-secondary mb-4"&gt;Daily News Analysis (DNA)&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-400"&gt;Comprehensive summary of The Hindu, Indian Express, and PIB, filtered specifically for UPSC Prelims and Mains relevance. Stop wasting time on irrelevant news.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="#" class="mt-4 inline-flex text-iqtab-primary hover:underline font-semibold"&gt;Read Today's DNA →&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="tab-content-pyq" class="tab-content hidden bg-iqtab-dark p-8 rounded-xl border border-iqtab-primary/50 shadow-lg"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-2xl font-bold text-iqtab-secondary mb-4"&gt;Topic-wise PYQs (Previous Year Questions)&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-400"&gt;Access our tabulated repository of all previous year questions, categorized by subject and topic. Essential for understanding UPSC's core demand.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="#" class="mt-4 inline-flex text-iqtab-primary hover:underline font-semibold"&gt;Access PYQ Database →&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- 5. Mentorship CTA Section --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section id="mentorship" class="py-20"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 bg-iqtab-primary/10 p-10 rounded-2xl shadow-2xl border border-iqtab-primary/30 text-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-4xl font-extrabold text-white mb-4"&gt;Need Personalized Guidance?&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-xl text-gray-300 mb-8"&gt;Schedule a free 15-minute one-on-one session with our UPSC expert to discuss your strategy, pitfalls, and a personalized roadmap.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#" class="inline-flex items-center justify-center px-10 py-4 border border-transparent text-lg font-bold rounded-full shadow-xl text-iqtab-dark bg-iqtab-secondary hover:bg-amber-300 transition duration-300 transform hover:scale-105"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>Book Your Free Session</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/main&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Footer --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;footer id="contact" class="bg-iqtab-dark border-t border-iqtab-primary/20 mt-12"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="grid grid-cols-2 md:grid-cols-4 gap-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Column 1: Logo &amp; Mission --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4 class="text-xl font-bold text-iqtab-secondary mb-4"&gt;UPSC IQTAB&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-400 text-sm"&gt;Intelligent Quality Tabulation. Your trusted partner in Civil Services preparation. We aim for excellence, not just clearing the exam.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Column 2: Quick Links --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4 class="text-lg font-semibold text-white mb-4"&gt;Quick Links&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;ul class="space-y-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;&lt;a href="#courses" class="text-gray-400 hover:text-iqtab-primary transition duration-300 text-sm"&gt;All Courses&lt;/a&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;&lt;a href="#resources" class="text-gray-400 hover:text-iqtab-primary transition duration-300 text-sm"&gt;Free Resources&lt;/a&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;&lt;a href="#" class="text-gray-400 hover:text-iqtab-primary transition duration-300 text-sm"&gt;Toppers' Strategy&lt;/a&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;&lt;a href="#" class="text-gray-400 hover:text-iqtab-primary transition duration-300 text-sm"&gt;FAQ&lt;/a&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Column 3: Contact --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4 class="text-lg font-semibold text-white mb-4"&gt;Get in Touch&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-400 text-sm"&gt;Email: &lt;a href="mailto:support@upsciqtab.com" class="hover:text-iqtab-primary"&gt;support@upsciqtab.com&lt;/a&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-400 text-sm mt-2"&gt;Phone: +91 98765 43210&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-400 text-sm mt-2"&gt;Office: New Delhi, India&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Column 4: Social Media --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4 class="text-lg font-semibold text-white mb-4"&gt;Follow Us&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex space-x-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="#" class="text-gray-400 hover:text-iqtab-secondary transition duration-300"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;!-- YouTube Icon --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"&gt;&lt;path d="M19.615 3.125a2.805 2.805 0 00-1.996-1.996C16.48 1 12 1 12 1s-4.48 0-5.619.129a2.805 2.805 0 00-1.996 1.996C4 4.52 4 12 4 12s0 7.48.129 8.619c.175.753.81 1.388 1.563 1.563C7.52 23 12 23 12 23s4.48 0 5.619-.129c.753-.175 1.388-.81 1.563-1.563C20 19.48 20 12 20 12s0-7.48-.129-8.619zM10.373 15.618V8.382L15 12l-4.627 3.618z"&gt;&lt;/path&gt;&lt;/svg&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="#" class="text-gray-400 hover:text-iqtab-secondary transition duration-300"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;!-- Telegram Icon (Placeholder) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"&gt;&lt;path d="M11.944 14.542l-4.57 4.417c.504.148 1.054.225 1.637.225 1.566 0 2.839-.99 3.018-2.311.026-.196.02-.4-.006-.594l-.066-.307zm-.594-5.253l-4.72 2.872a.5.5 0 00.324.912l10.428 3.513c.773.259 1.572-.21 1.572-.942V6.44c0-.733-.799-1.202-1.572-.943L12.5 8.95c-.244.082-.41.286-.46.529zM22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"&gt;&lt;/path&gt;&lt;/svg&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="#" class="text-gray-400 hover:text-iqtab-secondary transition duration-300"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;!-- X/Twitter Icon --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"&gt;&lt;path d="M18.901 1.153h3.684l-8.026 8.786 9.875 12.062h-8.29l-6.525-7.975-5.32 7.975H1.673l8.751-12.835L.302 1.153h8.318l5.584 7.218 5.06-7.218zM17.485 20.732h2.247L6.878 3.578H4.512l12.973 17.154z"&gt;&lt;/path&gt;&lt;/svg&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="mt-12 border-t border-iqtab-primary/10 pt-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-center text-gray-500 text-sm"&gt;&amp;copy; &lt;span id="current-year"&gt;&lt;/span&gt; UPSC IQTAB. All Rights Reserved. Intelligent Quality Tabulation.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/footer&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- JavaScript for Mobile Menu and Tabs --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.addEventListener('DOMContentLoaded', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const mobileMenuBtn = document.getElementById('mobile-menu-btn');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const mobileMenu = document.getElementById('mobile-menu');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const navLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : [];</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Mobile Menu Toggle</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (mobileMenuBtn) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>mobileMenuBtn.addEventListener('click', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>mobileMenu.classList.toggle('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Close mobile menu when a link is clicked</p>
-<p class="p1"><span class="Apple-converted-space">            </span>navLinks.forEach(link =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>link.addEventListener('click', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (mobileMenu) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>mobileMenu.classList.add('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Set current year in footer</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const currentYearSpan = document.getElementById('current-year');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (currentYearSpan) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>currentYearSpan.textContent = new Date().getFullYear();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Tabs Logic</p>
-<p class="p1"><span class="Apple-converted-space">            </span>window.showTab = function(tabId) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>// Hide all content</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.querySelectorAll('.tab-content').forEach(content =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>content.classList.add('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>// Deactivate all buttons</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.querySelectorAll('.tab-btn').forEach(btn =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>btn.classList.remove('bg-iqtab-primary', 'text-white');</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>btn.classList.add('text-gray-400', 'hover:text-white');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>// Show active content</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const contentElement = document.getElementById('tab-content-' + tabId);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (contentElement) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>contentElement.classList.remove('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>console.error('Content element not found for ID: tab-content-' + tabId);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>// Activate button</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const activeBtn = document.getElementById('tab-' + tabId);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (activeBtn) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>activeBtn.classList.add('bg-iqtab-primary', 'text-white');</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>activeBtn.classList.remove('text-gray-400', 'hover:text-white');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>console.error('Button element not found for ID: tab-' + tabId);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Initialize the first tab (DMA) on load</p>
-<p class="p1"><span class="Apple-converted-space">            </span>window.showTab('dma');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
-</body>
-</html>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPSC IQTAB - Intelligent Quality Tabulated Preparation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d111c; /* Deep Dark Background */
+            color: #e2e8f0; /* Light text for contrast */
+            scroll-behavior: smooth;
+        }
+        /* Custom scrollbar for aesthetics */
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+        body::-webkit-scrollbar-thumb {
+            background-color: #6366f1; /* Indigo */
+            border-radius: 4px;
+        }
+        .critique-card {
+            min-height: 250px;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'iqtab-primary': '#4f46e5', // Indigo 600
+                        'iqtab-secondary': '#fbbf24', // Amber 400
+                        'iqtab-dark': '#0d111c', // Deep Dark
+                        'iqtab-card': '#1a202c', // Slightly lighter dark for cards
+                    }
+                }
+            }
+        };
+    </script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- Firebase Initialization ---
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let app, db, auth, userId;
+
+        setLogLevel('Debug');
+
+        const initializeFirebase = async () => {
+            try {
+                if (Object.keys(firebaseConfig).length === 0) {
+                    console.warn("Firebase config not available. Running in local mode.");
+                    return;
+                }
+
+                app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                // Authenticate
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        console.log("Firebase Auth Ready. User ID:", userId);
+                    } else {
+                        console.log("User signed out or anonymous.");
+                        userId = null;
+                    }
+                });
+            } catch (error) {
+                console.error("Error initializing Firebase or signing in:", error);
+            }
+        };
+
+        initializeFirebase();
+
+        // --- Gemini API Logic ---
+
+        // Helper function for exponential backoff
+        const fetchWithRetry = async (url, options, maxRetries = 5) => {
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) {
+                        // Throw error to trigger retry if status is 429 or 5xx
+                        if (response.status === 429 || response.status >= 500) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                    }
+                    return response;
+                } catch (error) {
+                    if (i === maxRetries - 1) {
+                        throw error;
+                    }
+                    const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        };
+
+        window.generateAnswerCritique = async () => {
+            const answerInput = document.getElementById('mains-answer-input');
+            const critiqueOutput = document.getElementById('critique-output');
+            const loadingIndicator = document.getElementById('critique-loading');
+            const critiqueButton = document.getElementById('critique-button');
+
+            const userQuery = answerInput.value.trim();
+
+            if (!userQuery) {
+                critiqueOutput.innerHTML = `<p class="text-red-400">Please enter your practice answer first.</p>`;
+                return;
+            }
+
+            loadingIndicator.classList.remove('hidden');
+            critiqueButton.disabled = true;
+            critiqueOutput.innerHTML = '';
+
+            const systemPrompt = `Act as an experienced UPSC Mains examiner and tutor. Your task is to critique a student's answer to a General Studies question. Provide feedback in a clear, structured Markdown format using the following headings:
+1. **Content Relevance & Depth** (Max 5 points)
+2. **Structure & Presentation** (Max 5 points)
+3. **Suggestion for Improvement**
